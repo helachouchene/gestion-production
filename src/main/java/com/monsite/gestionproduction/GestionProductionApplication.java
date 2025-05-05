@@ -1,0 +1,12 @@
+// src/main/java/com/monsite/gestionproduction/GestionProductionApplication.java
+package com.monsite.gestionproduction;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class GestionProductionApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(GestionProductionApplication.class, args);
+    }
+}

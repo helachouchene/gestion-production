@@ -10,23 +10,23 @@ public class Produit {
     private Long id;
 
     private String nom;
-    private String description;
-    private int quantite;
+    private String type;
+    private int stock;
+    private String fournisseur;
 
-    // Getters et setters
+    // Getters et Setters
     public Long getId() { return id; }
-
     public void setId(Long id) { this.id = id; }
 
     public String getNom() { return nom; }
-
     public void setNom(String nom) { this.nom = nom; }
 
-    public String getDescription() { return description; }
+    public String getType() { return type; }
+    public void setType(String type) { this.type = type; }
 
-    public void setDescription(String description) { this.description = description; }
+    public int getStock() { return stock; }
+    public void setStock(int stock) { this.stock = stock; }
 
-    public int getQuantite() { return quantite; }
-
-    public void setQuantite(int quantite) { this.quantite = quantite; }
+    public String getFournisseur() { return fournisseur; }
+    public void setFournisseur(String fournisseur) { this.fournisseur = fournisseur; }
 }

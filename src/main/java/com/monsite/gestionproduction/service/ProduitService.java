@@ -11,12 +11,8 @@ import java.util.Optional;
 @Service
 public class ProduitService {
 
-    private final ProduitRepository produitRepository;
-
     @Autowired
-    public ProduitService(ProduitRepository produitRepository) {
-        this.produitRepository = produitRepository;
-    }
+    private ProduitRepository produitRepository;
 
     public List<Produit> getAllProduits() {
         return produitRepository.findAll();

@@ -1,0 +1,72 @@
+/* ----------  variables de couleur  ---------- */
+:root {
+  --primary: #0d6efd;
+  --primary-dark: #084298;
+  --bg-nav: #ffffff;
+  --bg-body: #f8f9fa;
+  --bg-footer: #e9ecef;
+  --text: #212529;
+}
+/* ----------  reset léger  ---------- */
+*{ box-sizing:border-box; margin:0; padding:0; }
+body{ font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background:var(--bg-body); color:var(--text); }
+
+/* ----------  barre de navigation  ---------- */
+.navbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:.75rem 1.5rem;
+  background:var(--bg-nav);
+  border-bottom:1px solid #dee2e6;
+  position:sticky; top:0; z-index:100;
+}
+
+.brand{
+  font-size:1.25rem;
+  font-weight:600;
+  color:var(--primary-dark);
+  white-space:nowrap;
+}
+
+.nav-links{
+  display:flex;
+  gap:1rem;
+  flex-wrap:wrap;
+}
+
+.nav-links a{
+  text-decoration:none;
+  color:var(--primary-dark);
+  font-weight:500;
+  padding:.25rem .5rem;
+  border-radius:.25rem;
+  transition:background .2s,color .2s;
+}
+
+.nav-links a:hover{
+  background:var(--primary);
+  color:#800040;
+}
+
+.nav-links a.active{
+  background:var(--primary-dark);
+  color:#800040;
+}
+
+/* ----------  zone de contenu  ---------- */
+.content{
+  padding:1.5rem;
+  min-height:calc(100vh - 160px); /* nav + footer approx. */
+  animation:fade .3s;
+}
+@keyframes fade{from{opacity:0} to{opacity:1}}
+
+/* ----------  pied de page  ---------- */
+.footer{
+  text-align:center;
+  background:var(--bg-footer);
+  padding:1rem;
+  font-size:.85rem;
+  color:#6c757d;
+}

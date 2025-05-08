@@ -1,0 +1,20 @@
+<header class="navbar">
+  <h1 class="brand">🏭 Gestion Production</h1>
+
+  <nav class="nav-links">
+    <a routerLink="/produit"            routerLinkActive="active">Produits</a>
+    <a routerLink="/technicien"         routerLinkActive="active">Techniciens</a>
+    <a routerLink="/machine"            routerLinkActive="active">Machines</a>
+    <a routerLink="/maintenance"        routerLinkActive="active">Maintenances</a>
+    <a routerLink="/ordre-fabrication"  routerLinkActive="active">Ordres de fab.</a>
+  </nav>
+</header>
+
+<main class="content">
+  <!-- Angular affichera ici le composant correspondant à la route -->
+  <router-outlet></router-outlet>
+</main>
+
+<footer class="footer">
+  <span>© 2025 Gestion Production – Projet JEE / Angular &amp; Spring Boot</span>
+</footer>

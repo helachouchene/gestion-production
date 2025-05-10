@@ -1,1 +1,36 @@
-<p>technicien works!</p>
+<div class="container">
+  <h2>Gestion des Techniciens</h2>
+
+  <form [formGroup]="technicienForm" (ngSubmit)="onSubmit()" class="form">
+    <input formControlName="nom" placeholder="Nom" required />
+    <input formControlName="competences" placeholder="Compétences" required />
+    <input formControlName="machine_assignee" placeholder="Machine assignée" required />
+
+    <button type="submit">
+      {{ technicienForm.value.id ? 'Modifier' : 'Ajouter' }}
+    </button>
+    <button type="button" (click)="technicienForm.reset()">Annuler</button>
+  </form>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Compétences</th>
+        <th>Machine assignée</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let technicien of techniciens">
+        <td>{{ technicien.nom }}</td>
+        <td>{{ technicien.competences }}</td>
+        <td>{{ technicien.machine_assignee }}</td>
+        <td>
+          <button (click)="editTechnicien(technicien)">Modifier</button>
+          <button (click)="deleteTechnicien(technicien.id)">Supprimer</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

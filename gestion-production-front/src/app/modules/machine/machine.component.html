@@ -1,1 +1,35 @@
-<p>machine works!</p>
+<div class="container">
+  <h2>Gestion des Machines</h2>
+
+  <form [formGroup]="machineForm" (ngSubmit)="onSubmit()" class="form">
+    <input formControlName="nom" placeholder="Nom de la machine" required />
+    <input formControlName="etat" placeholder="État" required />
+    <input type="date" formControlName="maintenance_prochaine" required />
+    <button type="submit">
+      {{ machineForm.value.id ? 'Modifier' : 'Ajouter' }}
+    </button>
+    <button type="button" (click)="machineForm.reset()">Annuler</button>
+  </form>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>État</th>
+        <th>Maintenance Prochaine</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let machine of machines">
+        <td>{{ machine.nom }}</td>
+        <td>{{ machine.etat }}</td>
+        <td>{{ machine.maintenance_prochaine | date }}</td>
+        <td>
+          <button (click)="editMachine(machine)">Modifier</button>
+          <button (click)="deleteMachine(machine.id)">Supprimer</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

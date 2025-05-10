@@ -1,1 +1,38 @@
-<p>maintenance works!</p>
+<div class="container">
+  <h2>Gestion des Maintenances</h2>
+
+  <form [formGroup]="maintenanceForm" (ngSubmit)="onSubmit()" class="form">
+    <input formControlName="machine" placeholder="Machine" required />
+    <input formControlName="technicien" placeholder="Technicien" required />
+    <input type="date" formControlName="date" required />
+    <input formControlName="type" placeholder="Type" required />
+    <button type="submit">
+      {{ maintenanceForm.value.id ? 'Modifier' : 'Ajouter' }}
+    </button>
+    <button type="button" (click)="maintenanceForm.reset()">Annuler</button>
+  </form>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Machine</th>
+        <th>Technicien</th>
+        <th>Date</th>
+        <th>Type</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let maintenance of maintenances">
+        <td>{{ maintenance.machine }}</td>
+        <td>{{ maintenance.technicien }}</td>
+        <td>{{ maintenance.date }}</td>
+        <td>{{ maintenance.type }}</td>
+        <td>
+          <button (click)="editMaintenance(maintenance)">Modifier</button>
+          <button (click)="deleteMaintenance(maintenance.id)">Supprimer</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

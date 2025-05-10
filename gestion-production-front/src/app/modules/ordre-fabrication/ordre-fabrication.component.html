@@ -1,1 +1,41 @@
-<p>ordre-fabrication works!</p>
+<div class="container">
+  <h2>Gestion des Ordres de Fabrication</h2>
+
+  <form [formGroup]="ordreForm" (ngSubmit)="onSubmit()" class="form">
+    <input formControlName="produit" placeholder="Produit" required />
+    <input type="number" formControlName="quantité" placeholder="Quantité" required />
+    <input type="date" formControlName="date" required />
+    <input formControlName="machine" placeholder="Machine" required />
+    <input formControlName="statut" placeholder="Statut" required />
+    <button type="submit">
+      {{ ordreForm.value.id ? 'Modifier' : 'Ajouter' }}
+    </button>
+    <button type="button" (click)="ordreForm.reset()">Annuler</button>
+  </form>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Produit</th>
+        <th>Quantité</th>
+        <th>Date</th>
+        <th>Machine</th>
+        <th>Statut</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ordre of ordres">
+        <td>{{ ordre.produit }}</td>
+        <td>{{ ordre.quantite }}</td>
+        <td>{{ ordre.date }}</td>
+        <td>{{ ordre.machine }}</td>
+        <td>{{ ordre.statut }}</td>
+        <td>
+          <button (click)="editOrdre(ordre)">Modifier</button>
+          <button (click)="deleteOrdre(ordre.id)">Supprimer</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

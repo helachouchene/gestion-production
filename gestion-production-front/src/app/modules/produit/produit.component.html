@@ -1,1 +1,38 @@
-<p>produit works!</p>
+<div class="container">
+  <h2>Gestion des Produits</h2>
+
+  <form [formGroup]="produitForm" (ngSubmit)="onSubmit()" class="form">
+    <input formControlName="nom" placeholder="Nom du produit" required />
+    <input formControlName="type" placeholder="Type" required />
+    <input type="number" formControlName="stock" placeholder="Stock" required />
+    <input formControlName="fournisseur" placeholder="Fournisseur" required />
+    <button type="submit">
+      {{ produitForm.value.id ? 'Modifier' : 'Ajouter' }}
+    </button>
+    <button type="button" (click)="produitForm.reset()">Annuler</button>
+  </form>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Type</th>
+        <th>Stock</th>
+        <th>Fournisseur</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let produit of produits">
+        <td>{{ produit.nom }}</td>
+        <td>{{ produit.type }}</td>
+        <td>{{ produit.stock }}</td>
+        <td>{{ produit.fournisseur }}</td>
+        <td>
+          <button (click)="editProduit(produit)">Modifier</button>
+          <button (click)="deleteProduit(produit.id)">Supprimer</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

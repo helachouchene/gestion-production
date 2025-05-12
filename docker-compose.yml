@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./ # le Dockerfile doit être à la racine de gestion-production
+      dockerfile: Dockerfile # ou spécifie le chemin exact si différent
+    container_name: spring-gestion
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/gestiondb
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=
+    networks:
+      - gestion-net
+
+  frontend:
+    build:
+      context: ./gestion-production-front
+      dockerfile: Dockerfile
+    container_name: angular-gestion
+    ports:
+      - "4200:80"
+    networks:
+      - gestion-net
+
+  db:
+    image: mysql:8.0
+    container_name: mysql-gestion
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD:
+      MYSQL_DATABASE: gestiondb
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - gestion-net
+
+volumes:
+  db_data:
+
+networks:
+  gestion-net:

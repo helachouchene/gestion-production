@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { OrdreFabrication } from '../modules/ordre-fabrication/ordre-fabrication.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrdreFabricationService {
-  private apiUrl = 'http://localhost:8080/api/ordres-fabrication';
+  private apiUrl = 'http://localhost:8080/api/ordres'; // adapte l'URL si besoin
 
   constructor(private http: HttpClient) {}
 

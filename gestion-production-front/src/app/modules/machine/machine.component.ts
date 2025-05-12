@@ -23,7 +23,7 @@ export class MachineComponent implements OnInit {
       id: [''],
       nom: [''],
       etat: [''],
-      maintenance_prochaine: ['']
+      maintenanceProchaine: ['']
     });
 
     this.loadMachines();

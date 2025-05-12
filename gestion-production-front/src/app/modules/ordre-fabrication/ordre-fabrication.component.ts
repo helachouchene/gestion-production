@@ -1,8 +1,12 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { OrdreFabrication } from './ordre-fabrication.model';
 import { OrdreFabricationService } from '../../services/ordre-fabrication.service';
+import { ProduitService } from '../../services/produit.service';
+import { MachineService } from '../../services/machine.service';
+import { Produit } from '../produit/produit.model';
+import { Machine } from '../machine/machine.model';
 
 @Component({
   selector: 'app-ordre-fabrication',
@@ -12,29 +16,33 @@ import { OrdreFabricationService } from '../../services/ordre-fabrication.servic
   imports: [CommonModule, ReactiveFormsModule],
 })
 export class OrdreFabricationComponent implements OnInit {
-  ordres: OrdreFabrication[] = [];
   ordreForm!: FormGroup;
+  ordres: OrdreFabrication[] = [];
+  produits: Produit[] = [];
+  machines: Machine[] = [];
 
-  private ordreService = inject(OrdreFabricationService);
   private fb = inject(FormBuilder);
+  private ordreService = inject(OrdreFabricationService);
+  private produitService = inject(ProduitService);
+  private machineService = inject(MachineService);
 
   ngOnInit(): void {
     this.ordreForm = this.fb.group({
       id: [''],
-      produit: [''],
-      quantité: [0],
+      produit: this.fb.group({ id: [''] }),
+      machine: this.fb.group({ id: [''] }),
+      quantite: [''],
       date: [''],
-      machine: [''],
       statut: ['']
     });
 
-    this.loadOrdres();
+    this.loadData();
   }
 
-  loadOrdres(): void {
-    this.ordreService.getAll().subscribe(data => {
-      this.ordres = data;
-    });
+  loadData(): void {
+    this.ordreService.getAll().subscribe(data => this.ordres = data);
+    this.produitService.getAll().subscribe(data => this.produits = data);
+    this.machineService.getAll().subscribe(data => this.machines = data);
   }
 
   onSubmit(): void {
@@ -42,24 +50,31 @@ export class OrdreFabricationComponent implements OnInit {
 
     if (ordre.id) {
       this.ordreService.update(ordre.id, ordre).subscribe(() => {
-        this.loadOrdres();
+        this.loadData();
         this.ordreForm.reset();
       });
     } else {
       this.ordreService.create(ordre).subscribe(() => {
-        this.loadOrdres();
+        this.loadData();
         this.ordreForm.reset();
       });
     }
   }
 
   editOrdre(ordre: OrdreFabrication): void {
-    this.ordreForm.patchValue(ordre);
+    this.ordreForm.patchValue({
+      id: ordre.id,
+      produit: { id: ordre.produit.id },
+      machine: { id: ordre.machine.id },
+      quantite: ordre.quantite,
+      date: ordre.date,
+      statut: ordre.statut
+    });
   }
 
   deleteOrdre(id: number): void {
-    if (confirm('Voulez-vous vraiment supprimer cet ordre de fabrication ?')) {
-      this.ordreService.delete(id).subscribe(() => this.loadOrdres());
+    if (confirm('Voulez-vous supprimer cet ordre de fabrication ?')) {
+      this.ordreService.delete(id).subscribe(() => this.loadData());
     }
   }
 }

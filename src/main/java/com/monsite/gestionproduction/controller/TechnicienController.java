@@ -2,40 +2,38 @@ package com.monsite.gestionproduction.controller;
 
 import com.monsite.gestionproduction.entity.Technicien;
 import com.monsite.gestionproduction.service.TechnicienService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/techniciens")
+@CrossOrigin(origins = "http://localhost:4200")
 public class TechnicienController {
 
-    @Autowired
-    private TechnicienService technicienService;
+    private final TechnicienService technicienService;
+
+    public TechnicienController(TechnicienService technicienService) {
+        this.technicienService = technicienService;
+    }
 
     @GetMapping
-    public List<Technicien> getAllTechniciens() {
-        return technicienService.getAllTechniciens();
+    public List<Technicien> getAll() {
+        return technicienService.getAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Technicien> getTechnicienById(@PathVariable Long id) {
-        Optional<Technicien> technicien = technicienService.getTechnicienById(id);
-        return technicien.map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public Technicien getById(@PathVariable Long id) {
+        return technicienService.getById(id);
     }
 
     @PostMapping
-    public Technicien createTechnicien(@RequestBody Technicien technicien) {
-        return technicienService.saveTechnicien(technicien);
+    public Technicien create(@RequestBody Technicien technicien) {
+        return technicienService.create(technicien);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteTechnicien(@PathVariable Long id) {
-        technicienService.deleteTechnicien(id);
-        return ResponseEntity.noContent().build();
+    public void delete(@PathVariable Long id) {
+        technicienService.delete(id);
     }
 }

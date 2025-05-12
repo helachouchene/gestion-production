@@ -1,15 +1,29 @@
 <div class="container">
-  <h2>Gestion des Ordres de Fabrication</h2>
+  <h2>Ordres de Fabrication</h2>
 
   <form [formGroup]="ordreForm" (ngSubmit)="onSubmit()" class="form">
-    <input formControlName="produit" placeholder="Produit" required />
-    <input type="number" formControlName="quantité" placeholder="Quantité" required />
+
+    <div formGroupName="produit">
+      <label>Produit</label>
+      <select formControlName="id" required>
+        <option value="">-- Sélectionner un produit --</option>
+        <option *ngFor="let produit of produits" [value]="produit.id">{{ produit.nom }}</option>
+      </select>
+    </div>
+
+    <div formGroupName="machine">
+      <label>Machine</label>
+      <select formControlName="id" required>
+        <option value="">-- Sélectionner une machine --</option>
+        <option *ngFor="let machine of machines" [value]="machine.id">{{ machine.nom }}</option>
+      </select>
+    </div>
+
+    <input type="number" formControlName="quantite" placeholder="Quantite" required />
     <input type="date" formControlName="date" required />
-    <input formControlName="machine" placeholder="Machine" required />
     <input formControlName="statut" placeholder="Statut" required />
-    <button type="submit">
-      {{ ordreForm.value.id ? 'Modifier' : 'Ajouter' }}
-    </button>
+
+    <button type="submit">{{ ordreForm.value.id ? 'Modifier' : 'Ajouter' }}</button>
     <button type="button" (click)="ordreForm.reset()">Annuler</button>
   </form>
 
@@ -17,19 +31,19 @@
     <thead>
       <tr>
         <th>Produit</th>
-        <th>Quantité</th>
-        <th>Date</th>
         <th>Machine</th>
+        <th>Quantite</th>
+        <th>Date</th>
         <th>Statut</th>
         <th>Actions</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let ordre of ordres">
-        <td>{{ ordre.produit }}</td>
+        <td>{{ ordre.produit.nom }}</td>
+        <td>{{ ordre.machine.nom }}</td>
         <td>{{ ordre.quantite }}</td>
         <td>{{ ordre.date }}</td>
-        <td>{{ ordre.machine }}</td>
         <td>{{ ordre.statut }}</td>
         <td>
           <button (click)="editOrdre(ordre)">Modifier</button>

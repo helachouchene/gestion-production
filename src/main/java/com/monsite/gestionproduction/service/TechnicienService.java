@@ -2,31 +2,32 @@ package com.monsite.gestionproduction.service;
 
 import com.monsite.gestionproduction.entity.Technicien;
 import com.monsite.gestionproduction.repository.TechnicienRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TechnicienService {
 
-    @Autowired
-    private TechnicienRepository technicienRepository;
+    private final TechnicienRepository technicienRepository;
 
-    public List<Technicien> getAllTechniciens() {
+    public TechnicienService(TechnicienRepository technicienRepository) {
+        this.technicienRepository = technicienRepository;
+    }
+
+    public List<Technicien> getAll() {
         return technicienRepository.findAll();
     }
 
-    public Optional<Technicien> getTechnicienById(Long id) {
-        return technicienRepository.findById(id);
+    public Technicien getById(Long id) {
+        return technicienRepository.findById(id).orElse(null);
     }
 
-    public Technicien saveTechnicien(Technicien technicien) {
+    public Technicien create(Technicien technicien) {
         return technicienRepository.save(technicien);
     }
 
-    public void deleteTechnicien(Long id) {
+    public void delete(Long id) {
         technicienRepository.deleteById(id);
     }
 }

@@ -77,8 +77,8 @@ export class MaintenanceComponent implements OnInit {
       id: maintenance.id,
       date: maintenance.date,
       type: maintenance.type,
-      machine: { id: maintenance.machine.id },
-      technicien: { id: maintenance.technicien.id }
+      machine: { nom: maintenance.machine.nom },
+      technicien: { nom: maintenance.technicien.nom }
     });
   }
 

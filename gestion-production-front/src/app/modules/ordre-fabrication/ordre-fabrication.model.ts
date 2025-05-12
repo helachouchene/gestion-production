@@ -1,8 +1,14 @@
 export interface OrdreFabrication {
   id: number;
-  produit: string;
+  produit: {
+    id: number;
+    nom?: string;
+  };
+  machine: {
+    id: number;
+    nom?: string;
+  };
   quantite: number;
   date: string;
-  machine: string;
   statut: string;
 }

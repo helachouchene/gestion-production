@@ -2,10 +2,32 @@
   <h2>Gestion des Maintenances</h2>
 
   <form [formGroup]="maintenanceForm" (ngSubmit)="onSubmit()" class="form">
-    <input formControlName="machine" placeholder="Machine" required />
-    <input formControlName="technicien" placeholder="Technicien" required />
+
+    <!-- Sélection de la machine -->
+    <div formGroupName="machine">
+      <label for="machine">Machine :</label>
+      <select formControlName="id" required>
+        <option value="" disabled selected>-- Choisir une machine --</option>
+        <option *ngFor="let machine of machines" [value]="machine.id">{{ machine.nom }}</option>
+      </select>
+    </div>
+
+    <!-- Sélection du technicien -->
+    <div formGroupName="technicien">
+      <label for="technicien">Technicien :</label>
+      <select formControlName="id" required>
+        <option value="" disabled selected>-- Choisir un technicien --</option>
+        <option *ngFor="let technicien of techniciens" [value]="technicien.id">{{ technicien.nom }}</option>
+      </select>
+    </div>
+
+    <!-- Date et type -->
+    <label for="date">Date :</label>
     <input type="date" formControlName="date" required />
-    <input formControlName="type" placeholder="Type" required />
+
+    <label for="type">Type de maintenance :</label>
+    <input formControlName="type" placeholder="Type de maintenance" required />
+
     <button type="submit">
       {{ maintenanceForm.value.id ? 'Modifier' : 'Ajouter' }}
     </button>
@@ -24,8 +46,8 @@
     </thead>
     <tbody>
       <tr *ngFor="let maintenance of maintenances">
-        <td>{{ maintenance.machine }}</td>
-        <td>{{ maintenance.technicien }}</td>
+        <td>{{ maintenance.machine.nom }}</td>
+        <td>{{ maintenance.technicien.nom }}</td>
         <td>{{ maintenance.date }}</td>
         <td>{{ maintenance.type }}</td>
         <td>
